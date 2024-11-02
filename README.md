@@ -20,12 +20,33 @@ colocamos el siguiente body:
 
 Al haber enviado una secuencia de ADN que no contiene ADN mutante, el resulado de la peticion sera "403 Forbidden" como inidica a continuacion:
 
-![image](https://github.com/user-attachments/assets/d7beccca-61d4-413f-87d3-e24d1821edca)
+![image](https://github.com/user-attachments/assets/85bbfc2f-6ae4-4bbe-b208-08ac5ac357e6)
 
-Si en Body enviamos una secuencia de ADN que si contenga ADN mutante como la siguiente:
+
+En cambio, si en el Body enviamos una secuencia de ADN que si contenga ADN mutante como la siguiente:
 
 ![image](https://github.com/user-attachments/assets/fb9ce0e5-5163-4e8b-9cf4-63795098b277)
 
 El resultado de la peticion sera "200 ok" y se mostrata el mensaje "Mutant detected", como podemos ver a continuacion:
 
-![image](https://github.com/user-attachments/assets/0adbbb38-adb1-4060-9915-f34be90f2174)
+![image](https://github.com/user-attachments/assets/c1461deb-71a8-4f0c-8150-1421ce82151a)
+
+
+## Nivel 3 - Servicio "/stats"
+- Ruta : "/stats"
+- Metodo : "GET"
+- Con esta peticion vamos a poder obtener estadisticas generales a cerca de cuantas peticones hemos enviado con ADN mutante y cuatas con ADN no mutante.
+Este nos va a devolver un body con las siguientes campos:
+- ratio : Indica la proporcion entre cantida de secuencias de ADN mutante y ADN no mutante
+- countMutantDna : indica la cantidad de peticiones con secuencia de ADN que enviamos a la API
+- countHumanDna: indica la cantidad de peticiones con ADN humano que enviamos a la API
+A continuación un ejemplo:
+
+![image](https://github.com/user-attachments/assets/9dfd0c5e-ad38-4d02-a946-1c8922f25d08)
+
+Esta peticion tendra la siguiente devolucion:
+
+![image](https://github.com/user-attachments/assets/5cd1b14b-c4ea-4533-9916-9aad3216159b)
+
+En la misma podemos observa un status "200 OK" en la cual figura countMutantDna : 2 , countHumanDna : 1 y ratio : 2.0. Esto quiere decir que hemos enviado dos peticoines
+con ADN mutante y una con ADN humano
