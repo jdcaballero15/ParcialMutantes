@@ -14,6 +14,16 @@ public class MutantService {
 
     public boolean isMutant(String[] dna) {
         int n = dna.length;
+        for (String row : dna) {
+            if (row.length() != n) {
+                throw new IllegalArgumentException("La matriz de ADN debe ser cuadrada.");
+            }
+            for (char c : row.toCharArray()) {
+                if (c != 'A' && c != 'T' && c != 'C' && c != 'G') {
+                    throw new IllegalArgumentException("La matriz de ADN solo puede contener las letras 'A', 'T', 'C' y 'G'.");
+                }
+            }
+        }
         int count = 0;
 
         // Verificar secuencias horizontales
@@ -34,12 +44,26 @@ public class MutantService {
         for (int i = 0; i <= n - 4; i++) {
             StringBuilder diagonal = new StringBuilder();
             for (int j = 0; j <= n - 4; j++) {
-                diagonal.append(dna[i + j].charAt(j));
+                if (i + j < n) {
+                    diagonal.append(dna[i + j].charAt(j));
+                }
+            }
+            count += countSequences(diagonal.toString());
+        }
+        for (int i = 0; i <= n - 4; i++) {
+            StringBuilder diagonal = new StringBuilder();
+            for (int j = 0; j <= n - 4; j++) {
+                if (i + j < n) {
+                    diagonal.append(dna[i + j].charAt(n - 1 - j));
+                }
             }
             count += countSequences(diagonal.toString());
         }
 
+
+
         // Verificar secuencias oblicuas (diagonal secundaria)
+        /*
         for (int i = 0; i <= n - 4; i++) {
             StringBuilder diagonal = new StringBuilder();
             for (int j = 0; j <= n - 4; j++) {
@@ -47,6 +71,8 @@ public class MutantService {
             }
             count += countSequences(diagonal.toString());
         }
+
+        */
 
         boolean isMutant = count > 1;
         if (isMutant) {
